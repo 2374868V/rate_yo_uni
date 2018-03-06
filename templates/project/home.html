@@ -1,0 +1,27 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>Rate Yo' Uni</h1>
+
+    <! signing up >
+    <div>
+        <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
+    </div>
+
+    <! add a page >
+    <div>
+        <li><a href="{% url 'add_toilet' %}">Add New Toilet</a> </li>
+    </div>
+
+    <! list of toilets >
+    <div>
+    {% if toilets %}
+        <ul>
+        {% for toilet in toilets %}
+            <a href="{% url 'show_toilet' toilet.slug %}">{{ toilet.name }}</a>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+{% endblock %}

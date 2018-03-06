@@ -1,0 +1,16 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>Add a Toilet</h1>
+
+    <! create toilet >
+    <div>
+        <li><a href="{% url 'show_toilet' toilet.slug %}">Finished</a></li>
+    </div>
+
+    <! cancel >
+    <div>
+        <li><a href="{% url 'home' %}">Cancel</a></li>
+    </div>
+{% endblock %}

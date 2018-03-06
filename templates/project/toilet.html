@@ -1,0 +1,16 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{% block body_block%}
+
+    <! home >
+    <div>
+        <li><a href="{% url 'home' %}">Home</a></li>
+    </div>
+
+    <! rate - LINKED TO ADD TOILET >
+    <div>
+    <li><a href="{% url 'add_toilet' %}">Rate</a></li>
+    </div>
+
+{% endblock %}

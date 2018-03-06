@@ -1,0 +1,16 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{%  block body_block %}
+
+    <! done >
+    <div>
+        <li><a href="{% url 'home' %}">Sign Up</a> </li>
+    </div>
+
+    <! cancel >
+    <div>
+        <li><a href="{% url 'home' %}">Cancel</a> </li>
+    </div>
+
+{% endblock %}
