@@ -6,11 +6,26 @@
 
     <! create toilet >
     <div>
-        <li><a href="{% url 'show_toilet' toilet.slug %}">Finished</a></li>
     </div>
 
     <! cancel >
     <div>
         <li><a href="{% url 'index' %}">Cancel</a></li>
+    </div>
+
+    <div>
+        <form id="bathroom_form" method="post" action="/project/add_toilet/">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" name="submit" value="Add Toilet"/>
+        </form>
     </div>
 {% endblock %}

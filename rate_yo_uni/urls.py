@@ -22,8 +22,4 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^project/', include('project.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^sign_up/', views.sign_up, name='sign_up'),
-    url(r'^add_toilet/', views.sign_up, name='add_toilet'),
-    url(r'^show_toilet/', views.sign_up, name='show_toilet')
-
 ]
