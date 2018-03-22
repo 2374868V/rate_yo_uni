@@ -3,14 +3,39 @@
 
 {% block body_block%}
 
-    <! home >
-    <div>
-        <li><a href="{% url 'index' %}">Home</a></li>
-    </div>
+    {% if toilet %}
 
-    <! rate - LINKED TO ADD TOILET >
-    <div>
-    <li><a href="{% url 'add_toilet' %}">Rate</a></li>
-    </div>
+        <div>
+            <a href="" alt="Building">{{ toilet.building }}</a>
+            Floor: <a href="" alt="Level"> {{ toilet.level }}</a>
+            <a href="" alt="Gender">{{ toilet.gender }}</a>
+        </div>
+
+        <div>
+            {% comment %}<ul>
+                {% for image in toilet.images %}
+                    <!--<li><img src="{{ image }}"></li>-->
+                {% endfor %}
+            </ul>{% endcomment %}
+        </div>
+
+        <div>
+            <h2>Rating: </h2>
+            <!-- JS and CSS -->
+            <button>Rate</button>
+        </div>
+
+        <div>
+            <h2>Comments: </h2>
+            <!-- JS and CSS -->
+            <textarea>Make your comment...</textarea>
+            <input type="submit" value="Submit">
+        </div>
+
+        <div>
+            <li><a href="{% url 'index' %}">Home</a></li>
+        </div>
+
+    {% endif %}
 
 {% endblock %}
