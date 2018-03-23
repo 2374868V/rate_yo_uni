@@ -35,25 +35,11 @@ class Bathroom(models.Model):
         return self.name
 
 
-class BathroomImage(models.Model):
-    bathroom = models.ForeignKey(Bathroom, related_name='images')
-    image = models.ImageField(blank=True, upload_to='bathroom_images')
-
-
-class Comment(models.Model):
-    comment = models.TextField()
-    date = models.DateTimeField(auto_now=True)
-    responseTo = models.ForeignKey('self', related_name='reply', blank=True)
-
-    def __str__(self):
-        return self.date + self.comment[0:2]
-
-
 class BathroomInteraction(models.Model):
     user = models.ForeignKey(UserProfile)
     b = models.ForeignKey(Bathroom)
     rate = models.IntegerField(blank=True)
-    comment = models.ManyToManyField(Comment, blank=True)
+    comment = models.CharField(blank=True, max_length=1000)
 
     def __str__(self):
         return self.b.name

@@ -1,12 +1,27 @@
 from django.shortcuts import render
 from project.models import *
 from project.forms import BathroomForm
+from django.db.models import Q
 # Create your views here.
 
 
 def index(request):
     bathroom_list = Bathroom.objects.values_list('name', 'bathroomSlug',)
-    context_dict = {'bathrooms': bathroom_list}
+    searchresponse_list = []
+
+    if request.method == 'GET':
+
+        term = request.GET.get('search_box', None)
+        if(term is not None):
+
+
+
+            searchresponse_list = Bathroom.objects.all().filter(Q(name__icontains=term) | Q(building__icontains=term)).values_list('name', 'bathroomSlug')
+
+        #searchresponse = searchresponse + list(Bathroom.objects.all().filter(name__icontains=term, flat=True))
+        #searchresponse = searchresponse + list(Bathroom.objects.all().filter(building__icontains=term, flat=True))
+
+    context_dict = {'bathrooms': bathroom_list, 'searchresponse': searchresponse_list}
     return render(request, 'project/home.html', context_dict)
 
 
@@ -28,13 +43,8 @@ def add_toilet(request):
 
 def show_toilet(request, bathroomSlug):
     try:
-        bathroom = Bathroom.objects.all().get(bathroomSlug=bathroomSlug)
-        context = {'toilet': bathroom,
-                   'interaction': BathroomInteraction.objects.filter(b=bathroom),
-                   'rating': bathroom.rating,
-                   'images': BathroomImage.objects.filter(bathroom=bathroom)}
+        context = {'toilet': Bathroom.objects.all().get(bathroomSlug=bathroomSlug)}
     except:
         context = {}
     return render(request, 'project/show_toilet.html', context)
-
 

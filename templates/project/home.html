@@ -22,6 +22,24 @@
     </div>
 
     <div>
+        <form type="get" action="." style="margin:0">
+            {% csrf_token %}
+            <input id="search_box" type="text" name="search_box" placeholder="Search here...">
+            <button id="search_submit" type="submit">Search</button>
+        </form>
+        {% if searchresponse %}
+
+            <ul>
+                {% for item in searchresponse %}
+                    <li><a href="{% url 'show_toilet' item.1 %}">{{ item.0 }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>No bathroom found</strong>
+        {% endif %}
+    </div>
+
+    <div>
         <! signing up >
          <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
         <! add a page >
