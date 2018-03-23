@@ -28,8 +28,13 @@ def add_toilet(request):
 
 def show_toilet(request, bathroomSlug):
     try:
-        context = {'toilet': Bathroom.objects.all().get(bathroomSlug=bathroomSlug)}
+        bathroom = Bathroom.objects.all().get(bathroomSlug=bathroomSlug)
+        context = {'toilet': bathroom,
+                   'interaction': BathroomInteraction.objects.filter(b=bathroom),
+                   'rating': bathroom.rating,
+                   'images': BathroomImage.objects.filter(bathroom=bathroom)}
     except:
         context = {}
     return render(request, 'project/show_toilet.html', context)
+
 
