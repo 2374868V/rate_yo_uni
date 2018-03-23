@@ -1,0 +1,34 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Sign Up
+{% endblock %}
+
+
+{%  block body_block %}
+
+    <h1>Sign Up</h1>
+    {% if registered %}
+        Thanks for signing up!
+        <a href="{% url 'index' %}">Return to homepage</a><br />
+    {% else %}
+        Sign Up
+        <form id="user_form" method="post" action="{% url 'sign_up' %}"
+              enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+
+        <input type="submit" name="submit" value="Register" />
+        </form>
+    {% endif %}
+
+    <! cancel >
+    <div>
+        <li><a href="{% url 'index' %}">Cancel</a> </li>
+    </div>
+
+{% endblock %}
