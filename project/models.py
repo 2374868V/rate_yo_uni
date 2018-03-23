@@ -8,9 +8,7 @@ from django.db import models
 
 
 class UserProfile(models.Model):
-    user_name = models.OneToOneField(User,
-                                     on_delete=models.CASCADE,
-                                     )
+    user_name = models.OneToOneField(User,on_delete=models.CASCADE)
     userSlug = models.SlugField(unique=True)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
@@ -25,7 +23,7 @@ class UserProfile(models.Model):
 
 
 class Bathroom(models.Model):
-    name = models.CharField(unique=True, max_length=20)
+    name = models.CharField(unique=True, max_length=100)
     building = models.CharField(max_length=100)
     level = models.CharField(max_length=4)
     gender = models.CharField(max_length=8)
@@ -41,32 +39,25 @@ class Bathroom(models.Model):
 
 
 class BathroomImage(models.Model):
-    bathroom = models.ForeignKey(Bathroom, related_name='images',
-                                 on_delete=models.CASCADE,
-                                 )
+    bathroom = models.ForeignKey(Bathroom, related_name='images',on_delete=models.CASCADE)
     image = models.ImageField(blank=True, upload_to='bathroom_images')
 
 
 class Comment(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    bathroom = models.ForeignKey(Bathroom, on_delete=models.CASCADE)
     comment = models.TextField()
     date = models.DateTimeField(auto_now=True)
-    responseTo = models.ForeignKey('self', related_name='reply', blank=True,
-                                   on_delete=models.CASCADE,
-                                   )
+    responseTo = models.ForeignKey('self', related_name='reply', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.date + self.comment[0:2]
+        return self.comment
 
 
-class BathroomInteraction(models.Model):
-    user = models.ForeignKey(UserProfile,
-                             on_delete=models.CASCADE,
-                             )
-    b = models.ForeignKey(Bathroom,
-                          on_delete=models.CASCADE,
-                          )
-    rate = models.IntegerField(blank=True)
-    comment = models.ManyToManyField(Comment, blank=True)
+class Rate(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    bathroom = models.ForeignKey(Bathroom, on_delete=models.CASCADE)
+    rate = models.IntegerField(blank=True, default=0)
 
     def __str__(self):
-        return self.b.name
+        return self.rate
