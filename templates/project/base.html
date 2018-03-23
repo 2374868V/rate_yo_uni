@@ -10,8 +10,55 @@
         </title>
     </head>
     <body>
-        {%  block body_block %}
+        <div id="menubar">
 
-        {% endblock %}
+            <div id="title" align="center">
+                <h1><strong>Rate Yo Uni</strong></h1>
+            </div>
+
+            <div id ="add" ><a href="{% url 'add_toilet' %}">Add New Toilet</a></div>
+
+            <div id="signup"><a href="{% url 'sign_up' %}">Sign Up</a></div>
+
+        </div>
+        <div id="content" back>
+            {%  block body_block %}
+
+            {% endblock %}
+        </div>
+
+            <style>
+                #menubar{
+                    background-color: #aaaaaa;
+                    heigth: 50px;
+                    width: 100%;
+                }
+                #title{
+                    float:left;
+                    width: 25%;
+                    background-color: #dddddd;
+                }
+
+                #add{
+                    float: right;
+                    background-color: #555555
+                    color: #000000
+                    heigth: 50px;
+                    width: 20%;
+                    margin-left: 20%;
+                }
+                #signup{
+                    float: right;
+                    background-color: #555555
+                    color: #ffffff
+                    heigth: 50px;
+                    width: 20%;
+                    margin-left: 20%;
+                }
+
+
+            </style>
+
+
     </body>
 </html>

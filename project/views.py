@@ -2,24 +2,21 @@ from django.shortcuts import render
 from project.models import *
 from project.forms import BathroomForm
 from django.db.models import Q
+from django import forms
 # Create your views here.
 
 
 def index(request):
-    bathroom_list = Bathroom.objects.values_list('name', 'bathroomSlug',)
+    bathroom_list = Bathroom.objects.values_list('name', 'bathroomSlug',)[0:5]
     searchresponse_list = []
+
 
     if request.method == 'GET':
 
         term = request.GET.get('search_box', None)
         if(term is not None):
-
-
-
             searchresponse_list = Bathroom.objects.all().filter(Q(name__icontains=term) | Q(building__icontains=term)).values_list('name', 'bathroomSlug')
 
-        #searchresponse = searchresponse + list(Bathroom.objects.all().filter(name__icontains=term, flat=True))
-        #searchresponse = searchresponse + list(Bathroom.objects.all().filter(building__icontains=term, flat=True))
 
     context_dict = {'bathrooms': bathroom_list, 'searchresponse': searchresponse_list}
     return render(request, 'project/home.html', context_dict)

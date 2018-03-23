@@ -4,12 +4,14 @@
 {% block title_block %} Home {% endblock %}
 
 {% block body_block %}
-    <h1>Rate Yo' Uni</h1>
 
-    </div>
-
+    <br>
+    <br>
+    <br>
+    <br>
+<div id="content">
     <! list of toilets >
-    <div>
+    <div id="newlyadded">
     {% if bathrooms %}
         <ul style="list-style-type:none;">
             {% for bathroom in bathrooms %}
@@ -21,7 +23,12 @@
     {% endif %}
     </div>
 
-    <div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div id="searchbar">
         <form type="get" action="." style="margin:0">
             {% csrf_token %}
             <input id="search_box" type="text" name="search_box" placeholder="Search here...">
@@ -38,8 +45,12 @@
             <strong>No bathroom found</strong>
         {% endif %}
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
 
-    <div>
+    <div >
         <! signing up >
          <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
         <! add a page >
@@ -47,4 +58,13 @@
         <! Sign in >
         <li>Sign In</li>
     </div>
+</div>
+    <style>
+        #content{
+                    clear: left;
+                    width 100%
+                    background-color: red;
+
+                }
+    </style>
 {% endblock %}
