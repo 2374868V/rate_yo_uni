@@ -7,7 +7,7 @@ from django import forms
 
 
 def index(request):
-    bathroom_list = Bathroom.objects.values_list('name', 'bathroomSlug',)[0:5]
+    bathroom_list = Bathroom.objects.values_list('name', 'bathroomSlug', 'building', 'rating', 'level', 'gender')[0:5]
     searchresponse_list = []
 
 

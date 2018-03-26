@@ -4,20 +4,33 @@
 {% block title_block %} Home {% endblock %}
 
 {% block body_block %}
-
+<link rel="stylesheet" href="{% static "css/home.css" %}">
     <br>
     <br>
     <br>
     <br>
-<div id="content" align="center">
     <! list of toilets >
-    <div id="newlyadded">
+    <div id="toiletshower">
     {% if bathrooms %}
-        <ul style="list-style-type:none;">
+
+
             {% for bathroom in bathrooms %}
-                <li><a href="{% url 'show_toilet' bathroom.1 %}">{{ bathroom.0 }}</a></li>
+                <div class="toiletitem">
+                    <div class="toilettext">
+                        <h3>{{bathroom.0}}</h3>   <br>
+                        <a href="{% url 'show_toilet' bathroom.1 %}">{{ bathroom.0 }}</a>    <br>
+                        Building: {{bathroom.2}}.<br>
+                        Level: {{bathroom.4}}. <br>
+                        Gender: {{bathroom.5}}.
+                    </div>
+                    <div class="toiletimage">
+                        <img src="{% static "images/toilet.jpg"%}" style="max-width:100%;">
+                    </div>
+                    <div class="toiletrating"> Rating: {{bathroom.3}}</div>
+                </div>
+
             {% endfor %}
-        </ul>
+
     {% else %}
         <strong>There are no bathrooms present...</strong>
     {% endif %}
@@ -57,6 +70,5 @@
          <li><a href="{% url 'add_toilet' %}">Add New Toilet</a> </li>
  
     </div>
-</div>
 
 {% endblock %}

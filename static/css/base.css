@@ -42,4 +42,10 @@
     width: 280px;
 }
 
+#content{
+    background-color: #dddddd;
+    height:50%;
+    overflow-y: scroll;
+}
+
 
