@@ -1,0 +1,45 @@
+#header{
+    color: black;
+    text-align: center;
+    padding: 10px;
+}
+
+#menubar{
+    background-color: black;
+    height: 40px;
+}
+
+.menuitem{
+    margin-left: 10%;
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 10px 40px;
+    color: #ffffff
+}
+.menuitem:hover{
+    background-color: #ffffff;
+}
+
+.menuitem a{
+    color: #ffffff;
+    text-decoration:none;
+}
+.menuitem:hover a{
+    color:#000000;
+    text-decoration:none;
+}
+
+
+
+#searchbar input[type=text]{
+    margin-right: 10%;
+    float: right;
+    padding: 10px;
+    border: none;
+    font-size: 20px;
+    height: 20px;
+    width: 280px;
+}
+
+
