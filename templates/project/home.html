@@ -1,27 +1,62 @@
 {% extends 'project/base.html' %}
 {% load staticfiles %}
 
+{% block title_block %} Home {% endblock %}
+
 {% block body_block %}
-    <h1>Rate Yo' Uni</h1>
 
-    <! signing up >
-    <div>
-        <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
-    </div>
+    <br>
+    <br>
+    <br>
+    <br>
 
-    <! add a page >
-    <div>
-        <li><a href="{% url 'add_toilet' %}">Add New Toilet</a> </li>
-    </div>
-
+    <div id="content" align="center">
     <! list of toilets >
-    <div>
-    {% if bathrooms %}
-        <ul>
-            {% for b in bathrooms %}
-                <a href="{% url 'show_toilet' b.bSlug %}">{{ b.name }}</a>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div id="newlyadded">
+        {% if bathrooms %}
+            <ul style="list-style-type:none;">
+                {% for b in bathrooms %}
+                    <li><a href="{% url 'show_toilet' b.bSlug %}">{{ b.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no bathrooms present...</strong>
+        {% endif %}
     </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div id="searchbar">
+        <form type="get" action="." style="margin:0">
+            {% csrf_token %}
+            <input id="search_box" type="text" name="search_box" placeholder="Search here...">
+            <button id="search_submit" type="submit">Search</button>
+        </form>
+        {% if searchresponse %}
+            <ul>
+                {% for item in searchresponse %}
+                    <li><a href="{% url 'show_toilet' item.bSlug %}">{{ item.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>No bathroom found</strong>
+        {% endif %}
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div>
+        <! signing up >
+        <a href="{% url 'sign_up' %}">Sign Up</a>
+        <! add a page >
+        <a href="{% url 'add_toilet' %}">Add New Toilet</a>
+    </div>
+</div>
+
 {% endblock %}

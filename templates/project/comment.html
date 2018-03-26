@@ -5,18 +5,23 @@
     <title>Comment</title>
 </head>
 <body>
-    <form id="comment_form" method="post">
-        {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
+    {% if user.is_authenticated %}
+        {% if toilet %}
+            <form id="comment_form" method="post">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
 
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
-        {% endfor %}
-        <input type="submit" name="submit" value="Add comment"/>
-    </form>
+                <input type="text" value="{{ user }}" id="user" style="visibility: hidden">
+                <input type="text" value="{{ toilet }}" id="bathroom" style="visibility: hidden">
+                <input type="textarea" id="comment">
+                <input type="submit" name="submit" value="Add comment"/>
+            </form>
+        {% endif %}
+    {% else %}
+        As you are not logged in you can't carry out this action!
+    {% endif %}
+    <a href="{% url 'show_toilet' toilet.bSlug %}">Go Back</a>
 </body>
 </html>

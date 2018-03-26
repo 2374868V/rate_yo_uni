@@ -1,13 +1,6 @@
 {% extends 'project/base.html' %}
 {% load staticfiles %}
 
-{% block style_block %}
-    <link rel="stylesheet" type="text/css" href="{% static 'bathroom.css' %}">
-{% endblock %}
-{% block script_block %}
-    <script src="{% static 'modal.js' %}"></script>
-{% endblock %}
-
 {% block body_block%}
 
     {% if toilet %}
@@ -28,7 +21,7 @@
             {% endif %}
         </div>
 
-        <a>
+        <div>
             <h2 id="ratingCurrent">Rating: </h2>
             {% if rating.rating__avg is None %}
                 There are no ratings!

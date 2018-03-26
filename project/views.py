@@ -3,12 +3,24 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Avg
 from project.forms import *
+from project.models import *
+from django.db.models import Q
+from django import forms
 # Create your views here.
 
 
 def index(request):
-    context = {'bathrooms': Bathroom.objects.all()}
-    return render(request, 'project/home.html', context)
+    bathroom_list = Bathroom.objects.all()[0:5]
+    searchresponse_list = []
+    if request.method == 'GET':
+
+        term = request.GET.get('search_box', None)
+        if term is not None:
+            searchresponse_list = Bathroom.objects.all().filter(
+                Q(name__icontains=term) | Q(building__icontains=term)).all()
+
+    context_dict = {'bathrooms': bathroom_list, 'searchresponse': searchresponse_list}
+    return render(request, 'project/home.html', context_dict)
 
 
 def sign_up(request):

@@ -42,9 +42,9 @@ class CommentForm(forms.ModelForm):
 
 
 class RatingForm(forms.ModelForm):
-    rating = forms.IntegerField(help_text="Enter single digit rating out of five")
-    user = forms.CharField(help_text="You")
-    bathroom = forms.CharField(help_text="Where you came from")
+    rating = forms.IntegerField(help_text="Enter single digit rating out of five", max_value=5)
+    user = forms.CharField()
+    bathroom = forms.CharField()
 
     class Meta:
         model = Rate

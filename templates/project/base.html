@@ -2,15 +2,33 @@
 {% load staticfiles %}
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="{% static "css/base.css" %}">
         <meta charset="UTF-8">
         <title>
             {%  block title_block %}
-                Rate Yo' Uni
+                Rate yo' Uni
             {%  endblock %}
         </title>
     </head>
     <body>
-        {%  block body_block %}
-        {% endblock %}
+    <div id="header"><h1><strong>Rate Yo' Uni</strong></h1></div>
+
+            <div id="menubar" align="center">
+                <div id="home" class="menuitem"><a href="{% url 'index' %} ">Home</a> </div>
+                <div id ="add" class="menuitem"><a href="{% url 'add_toilet' %}">Add New Toilet</a></div>
+                <div id="signup" class="menuitem"><a href="{% url 'sign_up' %}">Sign Up</a></div>
+                <div id="searchbar">
+                    <input type="text" id="search"
+                           onkeyup="searchFunction()" placeholder="Search for toilet..." title="search toilet">
+                </div>
+            </div>
+
+
+        <div id="content">
+            {%  block body_block %}
+            {% endblock %}
+        </div>
+
+
     </body>
 </html>
