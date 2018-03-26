@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate</title>
+</head>
+<body>
+{% if toilet %}
+    <form id="rating_form" method="post" action="/RateYoUni/bathrooms/{{ toilet.bSlug }}/rate/">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}
+            {{ field }}
+        {% endfor %}
+        <input type="submit" name="submit" value="Add rating"/>
+    </form>
+{% endif %}
+<a href="{% url 'show_toilet' toilet.bSlug %}">Go Back</a>
+</body>
+</html>

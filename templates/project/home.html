@@ -16,11 +16,11 @@
 
     <! list of toilets >
     <div>
-    {% if toilets %}
+    {% if bathrooms %}
         <ul>
-        {% for toilet in toilets %}
-            <a href="{% url 'show_toilet' toilet.slug %}">{{ toilet.name }}</a>
-        {% endfor %}
+            {% for b in bathrooms %}
+                <a href="{% url 'show_toilet' b.bSlug %}">{{ b.name }}</a>
+            {% endfor %}
         </ul>
     {% endif %}
     </div>
