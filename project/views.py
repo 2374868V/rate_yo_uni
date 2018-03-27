@@ -11,15 +11,14 @@ from django import forms
 
 def index(request):
     bathroom_list = Bathroom.objects.all()[0:5]
+    context_dict = {'bathrooms': bathroom_list}
     searchresponse_list = []
     if request.method == 'GET':
-
         term = request.GET.get('search_box', None)
         if term is not None:
             searchresponse_list = Bathroom.objects.all().filter(
                 Q(name__icontains=term) | Q(building__icontains=term)).all()
-
-    context_dict = {'bathrooms': bathroom_list, 'searchresponse': searchresponse_list}
+    context_dict['searchresponse'] = searchresponse_list
     return render(request, 'project/home.html', context_dict)
 
 
@@ -66,7 +65,7 @@ def show_toilet(request, bSlug):
         context['toilet'] = b
         context['rating'] = Rate.objects.filter(bathroom=b).aggregate(Avg('rating'))
         context['comments'] = Comment.objects.filter(bathroom=b)
-        return render(request, 'project/toilet.html', context)
+        return render(request, 'project/show_toilet.html', context)
     except:
         index(request)
 
