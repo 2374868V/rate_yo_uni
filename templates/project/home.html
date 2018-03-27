@@ -4,29 +4,71 @@
 {% block title_block %} Home {% endblock %}
 
 {% block body_block %}
-    <h1>Rate Yo' Uni</h1>
-
-    </div>
-
+<link rel="stylesheet" href="{% static "css/home.css" %}">
+    <br>
+    <br>
+    <br>
+    <br>
     <! list of toilets >
-    <div>
+    <div id="toiletshower">
     {% if bathrooms %}
-        <ul style="list-style-type:none;">
+
+
             {% for bathroom in bathrooms %}
-                <li><a href="{% url 'show_toilet' bathroom.1 %}">{{ bathroom.0 }}</a></li>
+                <div class="toiletitem">
+                    <div class="toilettext">
+                        <h3>{{bathroom.0}}</h3>   <br>
+                        <a href="{% url 'show_toilet' bathroom.1 %}">{{ bathroom.0 }}</a>    <br>
+                        Building: {{bathroom.2}}.<br>
+                        Level: {{bathroom.4}}. <br>
+                        Gender: {{bathroom.5}}.
+                    </div>
+                    <div class="toiletimage">
+                        <img src="{% static "images/toilet.jpg"%}" style="max-width:100%;">
+                    </div>
+                    <div class="toiletrating"> Rating: {{bathroom.3}}</div>
+                </div>
+
             {% endfor %}
-        </ul>
+
     {% else %}
         <strong>There are no bathrooms present...</strong>
     {% endif %}
     </div>
 
-    <div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div id="searchbar">
+        <form type="get" action="." style="margin:0">
+            {% csrf_token %}
+            <input id="search_box" type="text" name="search_box" placeholder="Search here...">
+            <button id="search_submit" type="submit">Search</button>
+        </form>
+        {% if searchresponse %}
+
+            <ul>
+                {% for item in searchresponse %}
+                    <li><a href="{% url 'show_toilet' item.1 %}">{{ item.0 }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>No bathroom found</strong>
+        {% endif %}
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div >
         <! signing up >
          <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
         <! add a page >
          <li><a href="{% url 'add_toilet' %}">Add New Toilet</a> </li>
-        <! Sign in >
-        <li>Sign In</li>
+ 
     </div>
+
 {% endblock %}

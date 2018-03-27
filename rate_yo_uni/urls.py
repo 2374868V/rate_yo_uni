@@ -20,9 +20,6 @@ from project import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^RateYoUni/', include('project.urls')),
+    url(r'^project/', include('project.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^sign_up/$',
-        views.sign_up,
-        name='Sign Up'),
 ]

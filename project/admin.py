@@ -8,8 +8,8 @@ class BathroomAdmin(admin.ModelAdmin):
     prepopulated_fields = {'bathroomSlug': ('bathroomSlug',)}
     fieldsets = [
         (None, {'fields': ['name', 'bathroomSlug']}),
-        ('Required', {'fields': ['building', 'level', 'gender']}),
-        ('Not required', {'fields': ['rating', 'image']}),
+        ('Required', {'fields':['building', 'level', 'gender']}),
+        ('Not required', {'fields':['rating']}),
     ]
 
 
@@ -18,7 +18,5 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Bathroom, BathroomAdmin)
-admin.site.register(Rate)
+admin.site.register(BathroomInteraction)
 admin.site.register(UserProfile, UserAdmin)
-admin.site.register(Comment)
-admin.site.register(BathroomImage)

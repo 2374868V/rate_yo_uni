@@ -1,16 +1,26 @@
 from django.shortcuts import render
 from project.models import *
-from project.forms import BathroomForm
-from project.forms import UserForm, UserProfileForm
+from project.forms import BathroomForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from django.core.urlresolvers import reverse
+#from django.core.urlresolvers import reverse
+from django.db.models import Q
 # Create your views here.
 
 
 def index(request):
-    bathroom_list = Bathroom.objects.values_list('name', 'bathroomSlug',)
-    context_dict = {'bathrooms': bathroom_list}
+    bathroom_list = Bathroom.objects.values_list('name', 'bathroomSlug', 'building', 'rating', 'level', 'gender')[0:5]
+    searchresponse_list = []
+
+
+    if request.method == 'GET':
+
+        term = request.GET.get('search_box', None)
+        if(term is not None):
+            searchresponse_list = Bathroom.objects.all().filter(Q(name__icontains=term) | Q(building__icontains=term)).values_list('name', 'bathroomSlug')
+
+
+    context_dict = {'bathrooms': bathroom_list, 'searchresponse': searchresponse_list}
     return render(request, 'project/home.html', context_dict)
 
 
@@ -64,21 +74,17 @@ def add_toilet(request):
 
 def show_toilet(request, bathroomSlug):
     try:
-        bathroom = Bathroom.objects.get(bathroomSlug=bathroomSlug)
-        context = {'toilet': bathroom,
-                   'comments': Comment.objects.filter(bathroomSlug=bathroomSlug),
-                   'images': BathroomImage.objects.filter(bathroom=bathroom)}
+        context = {'toilet': Bathroom.objects.all().get(bathroomSlug=bathroomSlug)}
     except:
         context = {}
     return render(request, 'project/show_toilet.html', context)
-
 
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(username=usename, password=password)
+        user = authenticate(username=username, password=password)
 
         if user:
             if user.is_active:
@@ -90,5 +96,6 @@ def user_login(request):
             print("Incorrect username or password")
             return HttpResponse("Invalid login details")
     else:
-        return render(request, 'project/login.html', {})
-
+        return render(request,
+                      'project/user_login.html',
+                      )

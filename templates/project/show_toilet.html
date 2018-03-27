@@ -5,43 +5,37 @@
 
     {% if toilet %}
 
-        <div style="width: 100%; position: center;">
-            Building: <strong>{{ toilet.building }}</strong>
-            Floor: <strong> {{ toilet.level }}</strong>
-            Gender: <strong>{{ toilet.gender }}</strong>
+        <div>
+            <a href="" alt="Building">{{ toilet.building }}</a>
+            Floor: <a href="" alt="Level"> {{ toilet.level }}</a>
+            <a href="" alt="Gender">{{ toilet.gender }}</a>
         </div>
 
         <div>
-            {% if images %}
-                {% for i in images %}
-                    <img src="{{ i.image }}" style="width: 200px; height: 400px;">
+            {% comment %}<ul>
+                {% for image in toilet.images %}
+                    <!--<li><img src="{{ image }}"></li>-->
                 {% endfor %}
-            {% else %}
-            {% endif %}
+            </ul>{% endcomment %}
         </div>
 
         <div>
-            <h2>Rating: {{ rating }}</h2>
+            <h2>Rating: </h2>
             <!-- JS and CSS -->
-            <button id="ratingBtn">Rate</button>
+            <button>Rate</button>
+        </div>
+
+        <div>
             <h2>Comments: </h2>
             <!-- JS and CSS -->
-            {% if comments %}
-                {% for comment in comments %}
-                    {{ comment.comment }} by {{ comment.user }} @ {{ comment.date }}
-                {% endfor %}
-            {% else %}
-                There are no comments yet, make a comment...
-            {% endif %}
-            <button id="commentBtn">Comment</button>
+            <textarea>Make your comment...</textarea>
+            <input type="submit" value="Submit">
         </div>
-
 
         <div>
-            <li style="list-style: none;"><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
         </div>
-    {% else %}
-        Couldn't find this bathroom!
+
     {% endif %}
 
 {% endblock %}

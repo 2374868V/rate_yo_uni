@@ -1,0 +1,42 @@
+
+
+.toiletitem{
+    float: center;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 30px 150px 30px;
+    margin-left: 20%;
+    margin-bottom: 30px;
+    background-color: #aaaaaa;
+
+    width: 60%;
+    height: 50%;
+    padding: 10px;
+}
+
+.toilettext{
+    grid-column-start: 1;
+    grid-column-end:   1;
+    grid-row-start:    1;
+    grid-row-end: 2;
+    padding: 15px;
+    height: 10%;
+    align-text: center;
+}
+
+.toiletimage {
+    grid-column-start: 2;
+    grid-column-end:   2;
+    grid-row-start:    1;
+    grid-row-end: 2;
+}
+
+.toiletrating{
+    padding: 10px;
+    grid-column-start: 2;
+    grid-column-end:   2;
+    grid-row-start:    3;
+    grid-row-end: 3;
+}
+
+
