@@ -73,7 +73,8 @@ def add_toilet(request):
         form = BathroomForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            return index(request)
+
+            return show_toilet(request, form.cleaned_data['slug'] )
         else:
             print(form.errors)
     return render(request, 'project/add_toilet.html', {'form': form})

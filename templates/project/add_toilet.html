@@ -14,7 +14,7 @@
     </div>
 
     <div align="center">
-        <form id="bathroom_form" method="post" action="/project/add_toilet/">
+        <form id="bathroom_form" name="bathroomform" method="post" >
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
             <br>
