@@ -8,7 +8,7 @@
     <div id="filterbar">
 
         <div id="dropdownfilter">
-            <form type="get" action="." style="margin:0">
+            <form type="get" id="filter_form" name="filterform" action="." style="margin:0">
                 {% csrf_token %}
                 <input id="search_box" type="text" name="search_box" placeholder="Search here..."><br>
                 Sort on:
@@ -17,8 +17,7 @@
                     <option value="-rating">Rating</option>
                 </select>
 
-
-                <input type="submit" style="display: none;"/>
+                <input type="submit" name="searchsubmit" value="search_request" style="display: none;"/>
             </form>
         </div>
 
@@ -33,6 +32,7 @@
             {% for bathroom in bathroom_list %}
                 <div class="toiletitem">
                     <div class="toilettext">
+
                         <h3>{{ bathroom.name }}</h3>   <br>
                         <a href="{% url 'show_toilet' bathroom.b_slug %}">{{ bathroom.name }}</a>    <br>
                         Building: {{ bathroom.building }}.<br>
@@ -50,17 +50,6 @@
             <strong>There are no bathrooms present...</strong>
         {% endif %}
 
-    </div>
-
-    <br>
-
-
-    <div >
-        <! signing up >
-         <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
-        <! add a page >
-         <li><a href="{% url 'add_toilet' %}">Add New Toilet</a> </li>
- 
     </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

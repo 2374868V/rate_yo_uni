@@ -19,14 +19,6 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-# def make_name(b, l, g):
-#     n = ""
-#     for i in b.__str__().split()[0]:
-#         n = n + i.capitalize()
-#     n = n + l.__str__() + g.__str__()
-#     return n
-
-
 class Bathroom(models.Model):
     GENDER_CHOICES = (
         ('F', 'Female'),
@@ -37,7 +29,7 @@ class Bathroom(models.Model):
     level = models.CharField(max_length=20)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     rating = models.DecimalField(blank=True, default=0.0, decimal_places=1, max_digits=2)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     b_slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):

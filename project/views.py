@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from project.forms import *
-from django.db.models import Q
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
+from django.db.models import Q
 # Create your views here.
 
 
@@ -12,7 +12,8 @@ def index(request):
     if request.method == 'GET':
         term = request.GET.get('search_box', None)
         sort = request.GET.get('select_sort', None)
-        if(term is not None and sort is not None):
+
+        if term is not None and sort is not None :
             bathroom_list = Bathroom.objects.all().filter(
                 Q(name__icontains=term) | Q(building__icontains=term)
             ).values_list(
@@ -56,7 +57,8 @@ def add_toilet(request):
         form = BathroomForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            return index(request)
+
+            return show_toilet(request, form.cleaned_data['b_slug'] )
         else:
             print(form.errors)
     return render(request, 'project/add_toilet.html', {'form': form})
@@ -85,4 +87,9 @@ def user_login(request):
             print("Incorrect username or password")
             return HttpResponse("Invalid login details")
     else:
-        return render(request, 'project/user_login.html', {})
+        return render(request, 'project/login.html', {})
+
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))

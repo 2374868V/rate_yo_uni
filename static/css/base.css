@@ -11,10 +11,20 @@
 
 .menuitem{
     margin-left: 10%;
+<<<<<<< HEAD
     float: left;
     display: block;
     text-align: center;
     padding: 10px 40px;
+=======
+    width: 12.5%;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    display: block;
+    text-align: center;
+
+>>>>>>> 5a3d5028dd8e468a247b9324ced3027666694089
     color: #ffffff
 }
 .menuitem:hover{
@@ -32,6 +42,7 @@
 
 
 
+<<<<<<< HEAD
 #searchbar input[type=text]{
     margin-right: 10%;
     float: right;
@@ -42,6 +53,8 @@
     width: 280px;
 }
 
+=======
+>>>>>>> 5a3d5028dd8e468a247b9324ced3027666694089
 #content{
     background-color: #dddddd;
     height:50%;

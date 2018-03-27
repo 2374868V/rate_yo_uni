@@ -5,11 +5,11 @@ from project.models import *
 
 
 class BathroomAdmin(admin.ModelAdmin):
-    #prepopulated_fields = {'b_slug': ('name',)}
+    prepopulated_fields = {'b_slug': ('name',)}
     fieldsets = [
-        ('Required', {'fields': ['building', 'level', 'gender']}),
+        ('Required', {'fields': ['name', 'building', 'level', 'gender']}),
         ('Not required', {'fields': ['rating']}),
-        ('Prepopulated', {'fields': ['b_slug', 'name']})
+        ('Prepopulated', {'fields': ['b_slug']})
     ]
 
 
