@@ -32,20 +32,20 @@ class BathroomForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(widget=forms.Textarea)
-    user = forms.CharField(widget=forms.HiddenInput())
-    bathroom = forms.CharField(widget=forms.HiddenInput())
+    user = forms.CharField(required=True)
+    bathroom = forms.CharField(required=True)
     date = forms.DateTimeField(widget=forms.HiddenInput())
 
     class Meta:
         model = Comment
-        fields = ('comment', )
+        fields = ('comment', 'bathroom', 'user')
 
 
 class RatingForm(forms.ModelForm):
-    rating = forms.IntegerField(help_text="Enter single digit rating out of five", max_value=5)
-    user = forms.CharField()
-    bathroom = forms.CharField()
+    rating = forms.IntegerField(help_text="Enter single digit rating out of five", max_value=5, min_value=0)
+    user = forms.CharField(required=True)
+    bathroom = forms.CharField(required=True)
 
     class Meta:
         model = Rate
-        fields = ('rating', )
+        fields = ('rating', 'bathroom', 'user')

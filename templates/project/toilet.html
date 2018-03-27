@@ -4,22 +4,19 @@
 {% block style_block %}
     <link rel="stylesheet" type="text/css" href="{% static 'bathroom.css' %}">
 {% endblock %}
-{% block script_block %}
-    <script src="{% static 'modal.js' %}"></script>
-{% endblock %}
 
 {% block body_block%}
 
     {% if toilet %}
         {% if user.is_authenticated %}
 
-        <div style="width: 100%; position: center;">
+        <div style="width: 100%; position: center;" id="head">
             Building: <strong>{{ toilet.building }}</strong>
             Floor: <strong> {{ toilet.level }}</strong>
             Gender: <strong>{{ toilet.gender }}</strong>
         </div>
 
-        <div>
+        <div class="Left">
             {% if images %}
                 {% for i in images %}
                     <img src="{{ i.image }}" style="width: 200px; height: 400px;">
@@ -28,18 +25,16 @@
             {% endif %}
         </div>
 
-        <a>
-            <h2 id="ratingCurrent">Rating: </h2>
+        <div class="Right">
+            <button onclick="document.getElementById('modal').click().show()">Rate/Comment</button>
+            <h2>Rating: </h2>
             {% if rating.rating__avg is None %}
                 There are no ratings!
             {% else %}
                 {{ rating.rating__avg }}
             {% endif %}
 
-            <!-- JS and CSS -->
-            <a href="{% url 'rate' toilet.bSlug %}"><button>Rate!</button></a>
             <h2>Comments: </h2>
-            <!-- JS and CSS -->
             {% if comments %}
                 {% for comment in comments %}
                     {{ comment }}
@@ -47,7 +42,23 @@
             {% else %}
                 There are no comments yet, make a comment...
             {% endif %}
-            <a href="{% url 'comment' toilet.bSlug %}"><button>Comment</button></a>
+        </div>
+
+        <div id="modal" style="visibility: hidden">
+            <form method="post" id="comment_form">
+                {% csrf_token %}
+                <input type="text" value="{{ user }}" id="user" style="visibility: hidden">
+                <input type="text" value="{{ toilet }}" id="bathroom" style="visibility: hidden">
+                <textarea id="comment" placeholder="Leave your comment!"></textarea>
+                <input type="submit" name="submit" value="Add Comment"/>
+            </form>
+            <form method="post" id="rating_form">
+                {% csrf_token %}
+                <input type="text" value="{{ user }}" id="user" style="visibility: hidden">
+                <input type="text" value="{{ toilet }}" id="bathroom" style="visibility: hidden">
+                <input type="number" id="rate">
+                <input type="submit" name="submit" value="Add Rating"/>
+            </form>
         </div>
 
         <div>
@@ -57,4 +68,8 @@
         {% endif %}
     {% endif %}
 
+{% endblock %}
+
+{% block script_block %}
+    <script src="{% static 'modal.js' %}"></script>
 {% endblock %}

@@ -10,7 +10,7 @@ from django import forms
 
 
 def index(request):
-    bathroom_list = Bathroom.objects.all()[0:5]
+    bathroom_list = Bathroom.objects.all()
     context_dict = {'bathrooms': bathroom_list}
     searchresponse_list = []
     if request.method == 'GET':
@@ -63,7 +63,7 @@ def show_toilet(request, bSlug):
     try:
         b = Bathroom.objects.get(bSlug=bSlug)
         context['toilet'] = b
-        context['rating'] = Rate.objects.filter(bathroom=b).aggregate(Avg('rating'))
+        b.rating = Rate.objects.filter(bathroom=b).aggregate(Avg('rating'))
         context['comments'] = Comment.objects.filter(bathroom=b)
         return render(request, 'project/show_toilet.html', context)
     except:
@@ -76,18 +76,18 @@ def rate(request, bSlug):
     try:
         toilet = Bathroom.objects.get(bSlug=bSlug)
         context['toilet'] = toilet
+        form = RatingForm
+        if request.method == 'POST':
+            form = RatingForm(request.POST)
+            if form.is_valid():
+                form.save(commit=True)
+                return show_toilet(request, bSlug)
+            else:
+                print(form.errors)
+        context['form'] = form
+        return render(request, 'project/rate.html', context)
     except:
         index(request)
-    form = RatingForm
-    if request.method == 'POST':
-        form = RatingForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return index(request)
-        else:
-            print(form.errors)
-    context['form'] = form
-    return render(request, 'project/rate.html', context)
 
 
 @login_required
@@ -103,6 +103,7 @@ def comment(request, bSlug):
         form = CommentForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
+
             return index(request)
         else:
             print(form.errors)

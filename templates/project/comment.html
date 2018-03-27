@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Comment</title>
-</head>
-<body>
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Comment!
+{% endblock %}
+
+{% block body_block %}
     {% if user.is_authenticated %}
         {% if toilet %}
-            <form id="comment_form" method="post">
+            <form id="comment_form" method="post" action="{% url 'show_toilet' toilet.bSlug %}">
                 {% csrf_token %}
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                {% endfor %}
-
                 <input type="text" value="{{ user }}" id="user" style="visibility: hidden">
                 <input type="text" value="{{ toilet }}" id="bathroom" style="visibility: hidden">
-                <input type="textarea" id="comment">
+                Comment:
+                <textarea id="comment"></textarea>
                 <input type="submit" name="submit" value="Add comment"/>
             </form>
         {% endif %}
@@ -23,5 +21,4 @@
         As you are not logged in you can't carry out this action!
     {% endif %}
     <a href="{% url 'show_toilet' toilet.bSlug %}">Go Back</a>
-</body>
-</html>
+{% endblock %}

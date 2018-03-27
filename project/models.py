@@ -29,6 +29,7 @@ class Bathroom(models.Model):
     building = models.CharField(max_length=100)
     level = models.CharField(max_length=20)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    rating = models.DecimalField(blank=True, default=0.0, decimal_places=1, max_digits=2)
     bSlug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):

@@ -3,28 +3,31 @@
 
 {% block body_block %}
     <h1 align="center">Add a Toilet</h1>
+    {% if user.is_authenticated %}
+        <div align="center">
+            <form id="bathroom_form" method="post" action="/RateYoUni/add_toilet/">
 
-    <! cancel >
-    <div>
-        <li><a href="{% url 'index' %}">Cancel</a></li>
-    </div>
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                <br>
+                    {{ hidden }}
+                {% endfor %}
 
-    <div align="center">
-        <form id="bathroom_form" method="post" action="/RateYoUni/add_toilet/">
+                {% for field in form.visible_fields %}
+                <br>
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+                <input type="submit" name="submit" value="Add Toilet"/>
+            </form>
+        </div>
 
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-            <br>
-                {{ hidden }}
-            {% endfor %}
-
-            {% for field in form.visible_fields %}
-            <br>
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Add Toilet"/>
-        </form>
-    </div>
+        <! cancel >
+        <div>
+            <a href="{% url 'index' %}">Cancel</a>
+        </div>
+    {% else %}
+        As you aren't signed in you can't carry out this action but just above is a way to changing that!
+    {% endif %}
 {% endblock %}

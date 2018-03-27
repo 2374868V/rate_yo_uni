@@ -4,20 +4,22 @@
 {%  block body_block %}
 
    <h1>Sign Up</h1>
-
-    {% if registered %}
-        Thanks for signing up!
-        <a href="{% url 'index' %}">Return to homepage</a><br />
+    {% if user.is_authenticated %}
+        You're already sign up and in!
     {% else %}
-        <form id="user_form" method="post" action="{% url 'sign_up' %}"
+        {% if registered %}
+            Thanks for signing up!
+            <a href="{% url 'index' %}">Return to homepage</a><br />
+        {% else %}
+            <form id="user_form" method="post" action="{% url 'sign_up' %}"
               enctype="multipart/form-data">
-        {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <input type="submit" name="submit" value="Register" />
-        </form>
+                {% csrf_token %}
+                {{ user_form.as_p }}
+                {{ profile_form.as_p }}
+                <input type="submit" name="submit" value="Register" />
+            </form>
+        {% endif %}
     {% endif %}
-
     <! cancel >
     <div>
         <a href="{% url 'index' %}">Cancel</a>

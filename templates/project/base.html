@@ -2,21 +2,28 @@
 {% load staticfiles %}
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="{% static "css/base.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
         <meta charset="UTF-8">
         <title>
             {%  block title_block %}
                 Rate yo' Uni
             {%  endblock %}
         </title>
+        {% block external_block %}
+        {% endblock %}
     </head>
     <body>
     <div id="header"><h1><strong>Rate Yo' Uni</strong></h1></div>
 
-            <div id="menubar" align="center">
+            <div id="menubar">
                 <div id="home" class="menuitem"><a href="{% url 'index' %} ">Home</a> </div>
                 <div id ="add" class="menuitem"><a href="{% url 'add_toilet' %}">Add New Toilet</a></div>
-                <div id="signup" class="menuitem"><a href="{% url 'sign_up' %}">Sign Up</a></div>
+                {% if user.is_authenticated %}
+                    <div id="signout" class="menuitem"><a href="{% url 'sign_up' %}">Sign Out</a></div>
+                {% else %}
+                    <div id="signin" class="menuitem"><a href="{% url 'sign_up' %}">Sign In</a></div>
+                    <div id="signup" class="menuitem"><a href="{% url 'sign_up' %}">Sign Up</a></div>
+                {% endif %}
                 <div id="searchbar">
                     <input type="text" id="search"
                            onkeyup="searchFunction()" placeholder="Search for toilet..." title="search toilet">
@@ -28,7 +35,6 @@
             {%  block body_block %}
             {% endblock %}
         </div>
-
 
     </body>
 </html>
