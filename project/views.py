@@ -10,15 +10,21 @@ from django import forms
 
 
 def index(request):
-    bathroom_list = Bathroom.objects.all()
+    bathroom_list = Bathroom.objects.values_list('name', 'bSlug', 'building', 'rating', 'level', 'gender')[0:5]
     context_dict = {'bathrooms': bathroom_list}
-    searchresponse_list = []
     if request.method == 'GET':
         term = request.GET.get('search_box', None)
-        if term is not None:
-            searchresponse_list = Bathroom.objects.all().filter(
-                Q(name__icontains=term) | Q(building__icontains=term)).all()
-    context_dict['searchresponse'] = searchresponse_list
+        sort = request.GET.get('select_sort', None)
+        if term is not None and sort is not None:
+            bathroom_list = Bathroom.objects.all().filter(
+                Q(name__icontains=term) | Q(building__icontains=term)
+            ).values_list(
+                'name', 'bSlug', 'building', 'rating', 'level', 'gender'
+            ).order_by(
+                sort
+            )
+        print(sort)
+    context_dict = {'bathroom_list': bathroom_list}
     return render(request, 'project/home.html', context_dict)
 
 
@@ -110,31 +116,22 @@ def comment(request, bSlug):
     context['form'] = form
     return render(request, 'project/comment.html', context)
 
-#
-# @login_required
-# def make_comment(request):
-#     form = CommentForm
-#     if request.method == 'POST':
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             form.save(commit=True)
-#         else:
-#             print(form.errors)
-#     return render(request, 'project/show_toilet.html')
-#
-#
-# @login_required
-# def make_rating(request):
-#     bathroom = None
-#     user = None
-#     r = None
-#     if request.method == 'GET':
-#         bathroom = request.GET['bathroom']
-#         user = request.GET['user']
-#         r = request.GET['rating']
-#     if bathroom:
-#         b = Bathroom.objects.get(bahtroomSlug=bathroom)
-#         if user:
-#             u = UserProfile.objects.get(userSlug=user)
-#
-#     return HttpResponse(r)
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=usename, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse("Your account is disabled")
+        else:
+            print("Incorrect username or password")
+            return HttpResponse("Invalid login details")
+    else:
+        return render(request, 'project/login.html', {})

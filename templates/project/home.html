@@ -4,59 +4,59 @@
 {% block title_block %} Home {% endblock %}
 
 {% block body_block %}
+<link rel="stylesheet" href="{% static "css/home.css" %}">
+    <div id="filterbar">
 
-    <br>
-    <br>
-    <br>
-    <br>
+        <div id="dropdownfilter">
+            <form type="get" action="." style="margin:0">
+                {% csrf_token %}
+                <input id="search_box" type="text" name="search_box" placeholder="Search here..."><br>
+                Sort on:
+                <select name="select_sort">
+                    <option value="name">ABC</option>
+                    <option value="-rating">Rating</option>
+                </select>
 
-    <div id="content" align="center">
-    <! list of toilets >
-    <div id="newlyadded">
-        {% if bathrooms %}
-            <ul style="list-style-type:none;">
-                {% for b in bathrooms %}
-                    <li><a href="{% url 'show_toilet' b.bSlug %}">{{ b.name }}</a></li>
-                {% endfor %}
-            </ul>
+
+                <input type="submit" style="display: none;"/>
+            </form>
+        </div>
+
+        <div id="filterlabel">
+            <p align="center">Press here to filter</p>
+        </div>2
+    </div>
+
+    <div id="toiletshower" >
+        {% if bathroom_list %}
+            {% for bathroom in bathroom_list %}
+                <div class="toiletitem">
+                    <div class="toilettext">
+                        <h3>{{bathroom.0}}</h3>   <br>
+                        <a href="{% url 'show_toilet' bathroom.1 %}">{{ bathroom.0 }}</a>    <br>
+                        Building: {{bathroom.2}}.<br>
+                        Level: {{bathroom.4}}. <br>
+                        Gender: {{bathroom.5}}.
+                    </div>
+                    <div class="toiletimage">
+                        <img src="{% static "images/toilet.jpg"%}" style="max-width:100%;">
+                    </div>
+                    <div class="toiletrating"> Rating: {{bathroom.3}}</div>
+                </div>
+            {% endfor %}
         {% else %}
             <strong>There are no bathrooms present...</strong>
         {% endif %}
     </div>
 
     <br>
-    <br>
-    <br>
-    <br>
 
-    <div id="searchbar">
-        <form type="get" action="." style="margin:0">
-            {% csrf_token %}
-            <input id="search_box" type="text" name="search_box" placeholder="Search here...">
-            <button id="search_submit" type="submit">Search</button>
-        </form>
-        {% if searchresponse %}
-            <ul>
-                {% for item in searchresponse %}
-                    <li><a href="{% url 'show_toilet' item.bSlug %}">{{ item.name }}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <strong>No bathroom found</strong>
-        {% endif %}
-    </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <div>
-        <! signing up >
-        <a href="{% url 'sign_up' %}">Sign Up</a>
-        <! add a page >
-        <a href="{% url 'add_toilet' %}">Add New Toilet</a>
-    </div>
-</div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#filterlabel").click(function(){
+        $("#dropdownfilter").slideToggle("slow");
+    });
+});
+</script>
 {% endblock %}

@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^bathrooms/(?P<bSlug>[\w\-]+)/rate/$', views.rate, name='rate'),
     url(r'^bathrooms/(?P<bSlug>[\w\-]+)/comment/$', views.comment, name='comment'),
     url(r'^bathrooms/(?P<bSlug>[\w\-]+)/$', views.show_toilet, name='show_toilet'),
+    url(r'^show_toilet/(?P<bSlug>[\w\-]+)/$', views.show_toilet, name='show_toilet'),
+    url(r'^login/$', views.user_login, name='login'),
 ]

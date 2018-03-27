@@ -55,5 +55,3 @@ class Rate(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     bathroom = models.ForeignKey(Bathroom, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.rating.__str__()

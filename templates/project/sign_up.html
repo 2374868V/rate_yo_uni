@@ -1,6 +1,11 @@
 {% extends 'project/base.html' %}
 {% load staticfiles %}
 
+{% block title_block %}
+    Sign Up
+{% endblock %}
+
+
 {%  block body_block %}
 
    <h1>Sign Up</h1>
@@ -20,8 +25,11 @@
             </form>
         {% endif %}
     {% endif %}
+
     <! cancel >
     <div>
         <a href="{% url 'index' %}">Cancel</a>
     </div>
+
 {% endblock %}
+

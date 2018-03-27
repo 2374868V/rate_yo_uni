@@ -2,21 +2,6 @@ from django import forms
 from project.models import *
 
 
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password')
-
-
-class UserProfileForm(forms.ModelForm):
-
-    class Meta:
-        model = UserProfile
-        fields = ('website', 'picture')
-
-
 class BathroomForm(forms.ModelForm):
     name = forms.CharField(max_length=20,
                            help_text="Please enter the bathroom name.")
@@ -27,7 +12,7 @@ class BathroomForm(forms.ModelForm):
 
     class Meta:
         model = Bathroom
-        fields = ('name', 'building', 'level', 'gender', 'bSlug')
+        fields = ('name', 'building', 'level', 'gender')
 
 
 class CommentForm(forms.ModelForm):
@@ -49,3 +34,17 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rate
         fields = ('rating', 'bathroom', 'user')
+       
+    
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('website', 'picture')
