@@ -8,7 +8,8 @@ from django.db import models
 
 
 class UserProfile(models.Model):
-    user_name = models.OneToOneField(User)
+    user_name = models.OneToOneField(User,
+                                    on_delete=models.CASCADE)
     userSlug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
@@ -36,8 +37,10 @@ class Bathroom(models.Model):
 
 
 class BathroomInteraction(models.Model):
-    user = models.ForeignKey(UserProfile)
-    b = models.ForeignKey(Bathroom)
+    user = models.ForeignKey(UserProfile,
+                            on_delete=models.CASCADE)
+    b = models.ForeignKey(Bathroom,
+                         on_delete=models.CASCADE)
     rate = models.IntegerField(blank=True)
     comment = models.CharField(blank=True, max_length=1000)
 
