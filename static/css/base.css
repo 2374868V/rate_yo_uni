@@ -11,10 +11,12 @@
 
 .menuitem{
     margin-left: 10%;
+    width: 12.5%;
+    line-height: 40px;
     float: left;
     display: block;
     text-align: center;
-    padding: 10px 40px;
+
     color: #ffffff
 }
 .menuitem:hover{
@@ -31,16 +33,6 @@
 }
 
 
-
-#searchbar input[type=text]{
-    margin-right: 10%;
-    float: right;
-    padding: 10px;
-    border: none;
-    font-size: 20px;
-    height: 20px;
-    width: 280px;
-}
 
 #content{
     background-color: #dddddd;
