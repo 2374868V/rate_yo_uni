@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block body_block %}
-    <h1>Add a Toilet</h1>
+    <h1 align="center">Add a Toilet</h1>
 
     <! create toilet >
     <div>
@@ -13,14 +13,16 @@
         <li><a href="{% url 'index' %}">Cancel</a></li>
     </div>
 
-    <div>
-        <form id="bathroom_form" method="post" action="/project/add_toilet/">
+    <div align="center">
+        <form id="bathroom_form" method="post" action="/RateYoUni/add_toilet/">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
+            <br>
                 {{ hidden }}
             {% endfor %}
 
             {% for field in form.visible_fields %}
+            <br>
                 {{ field.errors }}
                 {{ field.help_text }}
                 {{ field }}

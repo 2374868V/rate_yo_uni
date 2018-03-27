@@ -5,20 +5,25 @@ from project.models import *
 
 
 class BathroomAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'bathroomSlug': ('bathroomSlug',)}
+    #prepopulated_fields = {'b_slug': ('name',)}
     fieldsets = [
-        (None, {'fields': ['name', 'bathroomSlug']}),
         ('Required', {'fields': ['building', 'level', 'gender']}),
-        ('Not required', {'fields': ['rating', 'image']}),
+        ('Not required', {'fields': ['rating']}),
+        ('Prepopulated', {'fields': ['b_slug', 'name']})
     ]
 
 
 class UserAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'userSlug': ('user_name',)}
+    prepopulated_fields = {'userSlug': ('user',)}
+
+
+class CommentAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Required', {'fields': ['comment', 'user', 'bathroom']}),
+    ]
 
 
 admin.site.register(Bathroom, BathroomAdmin)
-admin.site.register(BathroomInteraction)
 admin.site.register(UserProfile, UserAdmin)
-admin.site.register(Comment)
-admin.site.register(BathroomImage)
+admin.site.register(Comment, CommentAdmin)
+admin.site.register(Rate)
