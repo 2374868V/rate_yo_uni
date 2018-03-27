@@ -14,25 +14,42 @@
     <div id="header"><h1><strong>Rate Yo Uni</strong></h1></div>
 
             <div id="menubar" align="center">
-                <div id="home" class="menuitem"><a href="{% url 'home' $} ">Home</a> </div>
+                <div id="home" class="menuitem"><a href="{% url 'index' %} ">Home</a> </div>
 
                 <div id ="add" class="menuitem"><a href="{% url 'add_toilet' %}">Add New Toilet</a></div>
 
                 <div id="signup" class="menuitem"><a href="{% url 'sign_up' %}">Sign Up</a></div>
 
-                 <div id="searchbar"><input type="text" id="search" onkeyup="searchFunction()" placeholder="Search for toilet..." title="search toilet"> </div>
+                 <div id="searchbar">
+                     <form name="searchform"  method="post" onsubmit="submitSearch(global)">
+                         {% csrf_token %}
+                         <input type="text" id ="search_bar" name="search_bar" placeholder="Search for toilet...">
+                         <input type="submit" style="display: none;" />
+                     </form>
+                 </div>
 
             </div>
 
 
 
 
-        <div id="content" back>
+        <div id="content" >
             {%  block body_block %}
 
             {% endblock %}
         </div>
 
+        <script>
+            function submitSearch(){
+
+                window.localStorage.setItem("searchterm", document.getElementById('search_bar').value);
+                alert(document.getElementById("search_bar").value);
+                window.localStorage.setItem("ongoingsearchquery", true );
+                alert(localStorage.getItem("searchterm"));
+                window.location.href = {% url 'index' %};
+
+            }
+        </script>
 
     </body>
 </html>

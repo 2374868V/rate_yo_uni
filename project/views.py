@@ -8,17 +8,26 @@ from django import forms
 
 def index(request):
     bathroom_list = Bathroom.objects.values_list('name', 'bathroomSlug', 'building', 'rating', 'level', 'gender')[0:5]
-    searchresponse_list = []
+
+
 
 
     if request.method == 'GET':
 
         term = request.GET.get('search_box', None)
-        if(term is not None):
-            searchresponse_list = Bathroom.objects.all().filter(Q(name__icontains=term) | Q(building__icontains=term)).values_list('name', 'bathroomSlug')
+        sort = request.GET.get('select_sort', None)
 
 
-    context_dict = {'bathrooms': bathroom_list, 'searchresponse': searchresponse_list}
+        if(term is not None and sort is not None):
+            bathroom_list = Bathroom.objects.all().filter(
+                Q(name__icontains=term) | Q(building__icontains=term)
+            ).values_list(
+                'name', 'bathroomSlug', 'building', 'rating', 'level', 'gender'
+            ).order_by(
+                sort
+            )
+        print(sort)
+    context_dict = {'bathroom_list': bathroom_list}
     return render(request, 'project/home.html', context_dict)
 
 
