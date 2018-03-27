@@ -45,3 +45,21 @@ def show_toilet(request, bathroomSlug):
         context = {}
     return render(request, 'project/show_toilet.html', context)
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=usename, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse("Your account is disabled")
+        else:
+            print("Incorrect username or password")
+            return HttpResponse("Invalid login details")
+    else:
+        return render(request, 'project/login.html', {})
