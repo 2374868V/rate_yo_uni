@@ -1,0 +1,23 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{% block title_block%}
+    Rate!
+{% endblock %}
+
+{% block body_block %}
+    {% if user.is_authenticated %}
+        {% if toilet %}
+            <form id="rating_form" method="post" action="/RateYoUni/bathrooms/{{ toilet.b_slug }}/rate/">
+                {% csrf_token %}
+                <input type="text" value="{{ user }}" name="user" hidden>
+                <input type="text" value="{{ toilet }}" name="bathroom" hidden>
+                <label>Rate: </label> <input type="number" name="rating">
+                <input type="submit" name="submit" value="Add rating"/>
+            </form>
+        {% endif %}
+    {% else %}
+        As you are not logged in you can't carry out this action!
+    {% endif %}
+    <a href="{% url 'show_toilet' toilet.b_slug %}">Go Back</a>
+{% endblock %}

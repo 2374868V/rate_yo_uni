@@ -1,0 +1,44 @@
+{% extends 'project/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <link rel="stylesheet" href="{% static "css/add_toilet.css" %}">
+    <h1 align="center">Add a Toilet</h1>
+
+<<<<<<< HEAD
+    <div align="center">
+        <form id="bathroom_form" name="bathroomform" method="post" >
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+=======
+    <! create toilet >
+    <div id="add_toilet_content">
+
+        <div id=toilet_form" align="center">
+            <form id="bathroom_form" name="bathroomform" method="post" >
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+
+                {% for field in form.visible_fields %}
+                <br>
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    <br>
+                    {{ field }}
+                {% endfor %}
+                <br>
+                <br>
+                <input type="submit" name="submit" value="Add Toilet"/>
+            </form>
+>>>>>>> f245a4e9203e01954259a771646c65f0b57b2e4d
+            <br>
+            <br>
+            <div id="cancel">
+                <a href="{% url 'index' %}">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
