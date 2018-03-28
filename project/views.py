@@ -16,7 +16,7 @@ def index(request):
 
         term = request.GET.get('search_box', None)
         sort = request.GET.get('select_sort', None)
-
+        #gender = request.GET.get('select_gender', None)
 
         if(term is not None and sort is not None):
             bathroom_list = Bathroom.objects.all().filter(
@@ -26,7 +26,8 @@ def index(request):
             ).order_by(
                 sort
             )
-        print(sort)
+
+
     context_dict = {'bathroom_list': bathroom_list}
     return render(request, 'project/home.html', context_dict)
 

@@ -9,7 +9,7 @@ class BathroomForm(forms.ModelForm):
     level = forms.CharField(max_length=4, help_text="Please enter on which level the bathroom is situated" )
 
 
-    gender = forms.ChoiceField(choices=[('M', 'Male'),('F', 'Female')])
+    gender = forms.ChoiceField(choices=[('M', 'Male'),('F', 'Female'),('N','Neutral')])
     rating = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
