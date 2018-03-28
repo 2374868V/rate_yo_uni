@@ -1,0 +1,33 @@
+#header{
+    color: black;
+    text-align: center;
+    padding: 10px;
+}
+
+#menubar{
+    background-color: black;
+    height: 40px;
+}
+
+.menuitem{
+    margin-left: 10%;
+    width: 12.5%;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    display: block;
+    text-align: center;
+    color: #ffffff
+}
+.menuitem:hover{
+    background-color: #ffffff;
+}
+
+.menuitem a{
+    color: #ffffff;
+    text-decoration:none;
+}
+.menuitem:hover a{
+    color:#000000;
+    text-decoration:none;
+}
