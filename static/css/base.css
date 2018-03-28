@@ -31,3 +31,11 @@
     color:#000000;
     text-decoration:none;
 }
+
+
+
+#content{
+    background-color: #dddddd;
+    height:50%;
+    overflow-y: scroll;
+}

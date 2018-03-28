@@ -12,12 +12,11 @@ def index(request):
     if request.method == 'GET':
         term = request.GET.get('search_box', None)
         sort = request.GET.get('select_sort', None)
-
-        if term is not None and sort is not None :
+        if term is not None and sort is not None:
             bathroom_list = Bathroom.objects.all().filter(
                 Q(name__icontains=term) | Q(building__icontains=term)
             ).values_list(
-                'name', 'b_slug', 'building', 'rating', 'level', 'gender'
+                'name', 'bathroomSlug', 'building', 'rating', 'level', 'gender'
             ).order_by(
                 sort
             )
@@ -58,7 +57,6 @@ def add_toilet(request):
         form = BathroomForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-
             return show_toilet(request, form.cleaned_data['b_slug'] )
         else:
             print(form.errors)
@@ -114,6 +112,7 @@ def comment(request, b_slug):
     except:
         return error_page(request)
     return render(request, 'project/comment.html', {'toilet': b})
+
 
 
 def error_page(request):

@@ -15,6 +15,7 @@ class BathroomForm(forms.ModelForm):
     class Meta:
         model = Bathroom
         fields = ('name', 'building', 'level', 'gender', 'b_slug')
+
        
     
 class UserForm(forms.ModelForm):
