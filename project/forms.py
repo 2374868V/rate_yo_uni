@@ -39,3 +39,14 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rate
         fields = ('rating', 'bathroom', 'user')
+
+
+class CommentForm(forms.ModelForm):
+    comment = forms.CharField(widget=forms.Textarea)
+    user = forms.CharField(required=True, widget=forms.HiddenInput())
+    bathroom = forms.CharField(required=True, widget=forms.HiddenInput())
+    date = forms.DateTimeField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = Comment
+        fields = ('comment', 'bathroom', 'user')

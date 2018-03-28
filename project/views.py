@@ -48,7 +48,8 @@ def sign_up(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
     return render(request,
-                  'project/sign_up.html', {'user_form': user_form,'profile_form': profile_form, 'registered': registered})
+                  'project/sign_up.html',
+                  {'user_form': user_form,'profile_form': profile_form, 'registered': registered})
 
 
 def add_toilet(request):
@@ -102,7 +103,6 @@ def user_logout(request):
 def rate(request, b_slug):
     try:
         b = Bathroom.objects.get(b_slug=b_slug)
-
     except:
         return error_page(request)
     return render(request, 'project/rate.html', {'toilet': b})
