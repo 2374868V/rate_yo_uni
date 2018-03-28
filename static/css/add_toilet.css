@@ -1,0 +1,16 @@
+#add_toilet_content{
+    height: 500px;
+}
+
+#cancel{
+    display: block;
+    background-color: #888888;
+    width: 60px;
+    padding: 10px ;
+
+}
+
+#cancel a{
+    color: #ffffff;
+    text-decoration:none;
+}
